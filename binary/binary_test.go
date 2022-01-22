@@ -20,16 +20,22 @@ var testCases = []struct {
 
 func TestParseBinary(t *testing.T) {
 	for _, tt := range testCases {
-		got, err := ParseBinary(tt.binary)
-		if err != nil {
-			t.Fatalf("ParseBinary(%v) returned error %q.  Error not expected.",
-				tt.binary, err)
-		}
+		got, _ := ParseBinary(tt.binary)
 
 		if got != tt.want {
 			t.Fatalf("ParseBinary(%v): got %d, want %v",
 				tt.binary, got, tt.want)
 		}
+	}
+}
+
+func TestParseInvalidBinary(t *testing.T) {
+	want := `"a" is not a vaid digit`
+
+	_, err := ParseBinary("1a")
+
+	if err.Error() != want {
+		t.Error("should return error:", want, "but got:", err.Error())
 	}
 }
 
