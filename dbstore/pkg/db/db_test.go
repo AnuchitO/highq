@@ -25,8 +25,6 @@ func setup(t *testing.T) (string, func()) {
 }
 
 func TestSingleGet(t *testing.T) {
-	t.Parallel()
-
 	testdb, teardown := setup(t)
 	defer teardown()
 	db := NewDb(testdb)
@@ -47,8 +45,6 @@ func TestSingleGet(t *testing.T) {
 }
 
 func TestMultipleGet(t *testing.T) {
-	t.Parallel()
-
 	testdb, teardown := setup(t)
 	defer teardown()
 	db := NewDb(testdb)
@@ -80,8 +76,6 @@ func TestMultipleGet(t *testing.T) {
 }
 
 func TestSingleDelete(t *testing.T) {
-	t.Parallel()
-
 	// prepare
 	testdb, teardown := setup(t)
 	defer teardown()
@@ -101,8 +95,6 @@ func TestSingleDelete(t *testing.T) {
 }
 
 func TestSingleRecover(t *testing.T) {
-	t.Parallel()
-
 	// prepare
 	testdb, teardown := setup(t)
 	defer teardown()
@@ -134,8 +126,6 @@ func TestSingleRecover(t *testing.T) {
 }
 
 func TestSingleRecoverWithDelete(t *testing.T) {
-	t.Parallel()
-
 	// prepare
 	testdb, teardown := setup(t)
 	defer teardown()
@@ -168,8 +158,6 @@ func TestSingleRecoverWithDelete(t *testing.T) {
 }
 
 func TestMultipleRecover(t *testing.T) {
-	t.Parallel()
-
 	testdb, teardown := setup(t)
 	defer teardown()
 	db := NewDb(testdb)
