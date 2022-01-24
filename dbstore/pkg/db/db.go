@@ -58,6 +58,10 @@ func (db *DB) pbAppend(entity *pb.Entity) (int64, error) {
 	return offset, nil
 }
 
+func (db *DB) Len() int {
+	return len(db.offsetMap)
+}
+
 // Set a key-value pair in the database
 func (db *DB) Set(entity *pb.Entity) error {
 	offset, err := db.pbAppend(entity)
