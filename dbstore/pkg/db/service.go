@@ -11,7 +11,7 @@ type Storage interface {
 
 // Service provides all database methods
 type Service struct {
-	db                *DB
+	db                Storage
 	SetRequestChannel chan *SetRequest
 }
 
