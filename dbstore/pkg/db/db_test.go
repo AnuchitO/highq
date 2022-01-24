@@ -36,7 +36,7 @@ func teardown(filename string) {
 }
 
 func setup(t *testing.T) (string, func()) {
-	var testdb = "db.test.bin"
+	const testdb = "db.test.bin"
 	dir, err := ioutil.TempDir("", "dbstore")
 	if err != nil {
 		t.Fatalf("error creating temp dir: %v", err)
