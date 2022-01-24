@@ -2,28 +2,17 @@ package db
 
 import (
 	"io"
-	"io/ioutil"
-	"os"
 	"reflect"
 	"testing"
 
 	"github.com/anuchito/dbstore/pb"
+	"github.com/mattetti/filebuffer"
 )
 
 func setup(t *testing.T) (io.ReadWriteSeeker, func()) {
 	t.Parallel()
 
-	f, err := ioutil.TempFile("", "dbstore")
-	if err != nil {
-		t.Fatalf("error creating temp dir: %v", err)
-	}
-
-	teardown := func() {
-		f.Close()
-		os.Remove(f.Name())
-	}
-
-	return f, teardown
+	return filebuffer.New(nil), func() {}
 }
 
 func TestSingleGet(t *testing.T) {
