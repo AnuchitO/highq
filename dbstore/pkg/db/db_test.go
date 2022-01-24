@@ -1,6 +1,7 @@
 package db
 
 import (
+	"io"
 	"io/ioutil"
 	"os"
 	"reflect"
@@ -9,7 +10,7 @@ import (
 	"github.com/anuchito/dbstore/pb"
 )
 
-func setup(t *testing.T) (*os.File, func()) {
+func setup(t *testing.T) (io.ReadWriteSeeker, func()) {
 	t.Parallel()
 
 	f, err := ioutil.TempFile("", "dbstore")
