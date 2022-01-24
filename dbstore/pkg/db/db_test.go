@@ -3,6 +3,7 @@ package db
 import (
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"reflect"
 	"testing"
 
@@ -35,11 +36,15 @@ func teardown(filename string) {
 }
 
 func setup(t *testing.T) (string, func()) {
+	var testdb = "db.test.bin"
 	dir, err := ioutil.TempDir("", "dbstore")
 	if err != nil {
 		t.Fatalf("error creating temp dir: %v", err)
 	}
-	return dir, func() {}
+
+	teardown := func() { os.RemoveAll(dir) }
+
+	return filepath.Join(dir, testdb), teardown
 }
 
 func TestSingleGet(t *testing.T) {
