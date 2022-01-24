@@ -34,6 +34,8 @@ func teardown(filename string) {
 }
 
 func TestSingleGet(t *testing.T) {
+	t.Parallel()
+
 	before(testdb)
 	defer teardown(testdb)
 	db := NewDb(testdb)
@@ -54,6 +56,8 @@ func TestSingleGet(t *testing.T) {
 }
 
 func TestMultipleGet(t *testing.T) {
+	t.Parallel()
+
 	before(testdb)
 	defer teardown(testdb)
 	db := NewDb(testdb)
@@ -85,6 +89,8 @@ func TestMultipleGet(t *testing.T) {
 }
 
 func TestSingleDelete(t *testing.T) {
+	t.Parallel()
+
 	// prepare
 	before(testdb)
 	defer teardown(testdb)
@@ -104,6 +110,8 @@ func TestSingleDelete(t *testing.T) {
 }
 
 func TestSingleRecover(t *testing.T) {
+	t.Parallel()
+
 	// prepare
 	before(testdb)
 	defer teardown(testdb)
@@ -135,6 +143,8 @@ func TestSingleRecover(t *testing.T) {
 }
 
 func TestSingleRecoverWithDelete(t *testing.T) {
+	t.Parallel()
+
 	// prepare
 	before(testdb)
 	defer teardown(testdb)
@@ -167,6 +177,8 @@ func TestSingleRecoverWithDelete(t *testing.T) {
 }
 
 func TestMultipleRecover(t *testing.T) {
+	t.Parallel()
+
 	before(testdb)
 	defer teardown(testdb)
 	db := NewDb(testdb)
