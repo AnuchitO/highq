@@ -12,10 +12,8 @@ import (
 )
 
 // NewMainHandler creates all http handlers
-func NewMainHandler(filename string) http.Handler {
+func NewMainHandler(service *Service) http.Handler {
 	r := http.NewServeMux()
-	mydb := NewDb(filename)
-	service := NewService(mydb)
 	myhandler := NewHandler(service)
 	r.Handle("/db/", ErrorMiddleware(myhandler.HandleDb))
 	r.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
