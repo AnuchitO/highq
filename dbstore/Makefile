@@ -16,7 +16,7 @@ build:
 	-o ${NAME} "${PROJECT}/cmd/server"
 
 test:
-	go test github.com/anuchito/dbstore/...
+	go test -v -race github.com/anuchito/dbstore/...
 
 run: build
 	PORT=8080 DB_FILENAME=${DB_FILE} ./app
