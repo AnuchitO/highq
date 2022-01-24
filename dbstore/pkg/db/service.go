@@ -2,7 +2,7 @@ package db
 
 import "github.com/anuchito/dbstore/pb"
 
-type SetGetDeleter interface {
+type Storage interface {
 	Set(entity *pb.Entity) error
 	Get(key string) (*pb.Entity, error)
 	Delete(key string) error
