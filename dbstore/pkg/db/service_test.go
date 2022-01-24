@@ -83,7 +83,7 @@ func TestMultipleServiceSet(t *testing.T) {
 	wg.Wait() // wait for all goroutines to finish
 
 	// check if all key-values are inserted correctly
-	mapLen := service.db.Len()
+	mapLen := service.Storage.Len()
 	if maxItems != mapLen {
 		t.Fatalf("mapLen: expected %d, got %d", maxItems, mapLen)
 	}

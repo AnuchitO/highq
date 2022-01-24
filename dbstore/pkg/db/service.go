@@ -12,7 +12,7 @@ type Storage interface {
 
 // Service provides all database methods
 type Service struct {
-	db                Storage
+	Storage
 	SetRequestChannel chan *SetRequest
 }
 
@@ -26,7 +26,7 @@ type SetRequest struct {
 // NewService creates a new db-service based on the given db reference
 func NewService(db *DB) *Service {
 	c := make(chan *SetRequest)
-	service := &Service{db: db, SetRequestChannel: c}
+	service := &Service{Storage: db, SetRequestChannel: c}
 
 	err := db.Recover()
 	if err != nil {
@@ -37,7 +37,7 @@ func NewService(db *DB) *Service {
 	// concurrency issues during save.
 	go func(queryChan <-chan *SetRequest) {
 		for request := range queryChan {
-			err := service.db.Set(request.Entity)
+			err := service.Storage.Set(request.Entity)
 			request.ResultChannel <- err
 		}
 	}(c)
@@ -58,7 +58,7 @@ func (service *Service) Set(entity *pb.Entity) error {
 
 // Get entity from database with given key
 func (service *Service) Get(key string) (*pb.Entity, error) {
-	entity, err := service.db.Get(key)
+	entity, err := service.Storage.Get(key)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func (service *Service) Get(key string) (*pb.Entity, error) {
 
 // Delete entity with given key from database
 func (service *Service) Delete(key string) error {
-	err := service.db.Delete(key)
+	err := service.Storage.Delete(key)
 	if err != nil {
 		return err
 	}
