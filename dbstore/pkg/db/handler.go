@@ -12,7 +12,7 @@ import (
 )
 
 // NewMainHandler creates all http handlers
-func NewMainHandler(service *Service) http.Handler {
+func NewMainHandler(service Storage) http.Handler {
 	r := http.NewServeMux()
 	myhandler := NewHandler(service)
 	r.Handle("/db/", ErrorMiddleware(myhandler.HandleDb))
@@ -48,7 +48,7 @@ func versionHandler(w http.ResponseWriter, r *http.Request) error {
 
 // Handler holds all http methods
 type Handler struct {
-	service *Service
+	service Storage
 }
 
 // HTTPError contains http status code
