@@ -45,7 +45,7 @@ func main() {
 		fmt.Println("got SIGTERM...")
 	}
 	fmt.Println("App is shutting down...")
-	err := srv.Shutdown(context.Background())
+	err = srv.Shutdown(context.Background())
 	if err != nil {
 		fmt.Printf("Error shutting down: %v\n", err)
 	}
