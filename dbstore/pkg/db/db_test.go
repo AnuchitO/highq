@@ -9,7 +9,7 @@ import (
 	"github.com/anuchito/dbstore/pb"
 )
 
-func setupFile(t *testing.T) (*os.File, func()) {
+func setup(t *testing.T) (*os.File, func()) {
 	t.Parallel()
 
 	f, err := ioutil.TempFile("", "dbstore")
@@ -26,7 +26,7 @@ func setupFile(t *testing.T) (*os.File, func()) {
 }
 
 func TestSingleGet(t *testing.T) {
-	f, teardown := setupFile(t)
+	f, teardown := setup(t)
 	defer teardown()
 	db := New(f)
 	key := "foo-key"
@@ -46,7 +46,7 @@ func TestSingleGet(t *testing.T) {
 }
 
 func TestMultipleGet(t *testing.T) {
-	f, teardown := setupFile(t)
+	f, teardown := setup(t)
 	defer teardown()
 	db := New(f)
 	key := "foo-key"
@@ -78,7 +78,7 @@ func TestMultipleGet(t *testing.T) {
 
 func TestSingleDelete(t *testing.T) {
 	// prepare
-	f, teardown := setupFile(t)
+	f, teardown := setup(t)
 	defer teardown()
 	db := New(f)
 	key := "foo-key"
@@ -97,7 +97,7 @@ func TestSingleDelete(t *testing.T) {
 
 func TestSingleRecover(t *testing.T) {
 	// prepare
-	f, teardown := setupFile(t)
+	f, teardown := setup(t)
 	defer teardown()
 	db := New(f)
 	key := "foo-key"
@@ -128,7 +128,7 @@ func TestSingleRecover(t *testing.T) {
 
 func TestSingleRecoverWithDelete(t *testing.T) {
 	// prepare
-	f, teardown := setupFile(t)
+	f, teardown := setup(t)
 	defer teardown()
 	db := New(f)
 	key := "foo-key"
@@ -159,7 +159,7 @@ func TestSingleRecoverWithDelete(t *testing.T) {
 }
 
 func TestMultipleRecover(t *testing.T) {
-	f, teardown := setupFile(t)
+	f, teardown := setup(t)
 	defer teardown()
 	db := New(f)
 
