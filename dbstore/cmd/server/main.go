@@ -16,7 +16,13 @@ import (
 func main() {
 	config := config.NewConfig()
 	fmt.Println("start app...")
-	handler := db.NewMainHandler(config.Filename)
+	f, err := os.OpenFile(config.Filename, os.O_CREATE|os.O_RDWR, 0644)
+	if err != nil {
+		log.Fatalf("error file opening for write")
+	}
+	database := db.New(f)
+	service := db.NewService(database)
+	handler := db.NewMainHandler(service)
 
 	// graceful shutdown
 	signals := make(chan os.Signal, 1)
