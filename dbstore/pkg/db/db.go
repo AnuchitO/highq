@@ -19,6 +19,18 @@ type DB struct {
 	offsetMap map[string]int64
 }
 
+// NewDb return a new intialized Db
+func NewDb(filename string) *DB {
+	f, err := os.OpenFile(filename, os.O_CREATE|os.O_RDWR, 0644)
+	if err != nil {
+		log.Fatalf("error file opening for write")
+	}
+
+	offsetMap := make(map[string]int64)
+	db := &DB{filename: filename, f: f, offsetMap: offsetMap}
+	return db
+}
+
 func writeBinaryBufferLength(data []byte) *bytes.Buffer {
 	var length = uint64(len(data))
 	buf := new(bytes.Buffer)
@@ -158,16 +170,4 @@ func (db *DB) readPbData(lengthOf uint64) (*pb.Entity, error) {
 		return nil, fmt.Errorf("proto unmarshal error %v", err)
 	}
 	return entity, nil
-}
-
-// NewDb return a new intialized Db
-func NewDb(filename string) *DB {
-	f, err := os.OpenFile(filename, os.O_CREATE|os.O_RDWR, 0644)
-	if err != nil {
-		log.Fatalf("error file opening for write")
-	}
-
-	offsetMap := make(map[string]int64)
-	db := &DB{filename: filename, f: f, offsetMap: offsetMap}
-	return db
 }
