@@ -27,7 +27,6 @@ func setup(t *testing.T) (string, func()) {
 func setupFile(t *testing.T) (*os.File, func()) {
 	t.Parallel()
 
-	const testdb = "db.test.bin"
 	f, err := ioutil.TempFile("", "dbstore")
 	if err != nil {
 		t.Fatalf("error creating temp dir: %v", err)
