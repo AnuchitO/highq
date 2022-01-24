@@ -7,6 +7,7 @@ type Storage interface {
 	Get(key string) (*pb.Entity, error)
 	Delete(key string) error
 	Recover() error
+	Len() int
 }
 
 // Service provides all database methods
