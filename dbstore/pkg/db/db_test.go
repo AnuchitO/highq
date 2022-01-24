@@ -1,6 +1,7 @@
 package db
 
 import (
+	"io/ioutil"
 	"os"
 	"reflect"
 	"testing"
@@ -31,6 +32,14 @@ func teardown(filename string) {
 	if err != nil {
 		// panic("could not delete db file")
 	}
+}
+
+func setup(t *testing.T) (string, func()) {
+	dir, err := ioutil.TempDir("", "dbstore")
+	if err != nil {
+		t.Fatalf("error creating temp dir: %v", err)
+	}
+	return dir, func() {}
 }
 
 func TestSingleGet(t *testing.T) {
