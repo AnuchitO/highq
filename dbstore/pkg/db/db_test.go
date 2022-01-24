@@ -3,26 +3,11 @@ package db
 import (
 	"io/ioutil"
 	"os"
-	"path/filepath"
 	"reflect"
 	"testing"
 
 	"github.com/anuchito/dbstore/pb"
 )
-
-func setup(t *testing.T) (string, func()) {
-	t.Parallel()
-
-	const testdb = "db.test.bin"
-	dir, err := ioutil.TempDir("", "dbstore")
-	if err != nil {
-		t.Fatalf("error creating temp dir: %v", err)
-	}
-
-	teardown := func() { os.RemoveAll(dir) }
-
-	return filepath.Join(dir, testdb), teardown
-}
 
 func setupFile(t *testing.T) (*os.File, func()) {
 	t.Parallel()
