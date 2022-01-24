@@ -11,6 +11,8 @@ import (
 )
 
 func setup(t *testing.T) (string, func()) {
+	t.Parallel()
+
 	const testdb = "db.test.bin"
 	dir, err := ioutil.TempDir("", "dbstore")
 	if err != nil {
