@@ -10,31 +10,6 @@ import (
 	"github.com/anuchito/dbstore/pb"
 )
 
-var testdb = "db.test.bin"
-
-func clean(filename string) error {
-	err := os.Remove(filename)
-
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func before(filename string) {
-	err := clean(filename)
-	if err != nil {
-		// panic("could not delete db file")
-	}
-}
-
-func teardown(filename string) {
-	err := clean(filename)
-	if err != nil {
-		// panic("could not delete db file")
-	}
-}
-
 func setup(t *testing.T) (string, func()) {
 	const testdb = "db.test.bin"
 	dir, err := ioutil.TempDir("", "dbstore")
