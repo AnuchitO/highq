@@ -117,7 +117,7 @@ func (fn ErrorMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 // NewHandler is a constructor of all handlers
-func NewHandler(service *Service) *Handler {
+func NewHandler(service Storage) *Handler {
 	return &Handler{service: service}
 }
 
