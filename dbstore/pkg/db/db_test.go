@@ -50,8 +50,8 @@ func setup(t *testing.T) (string, func()) {
 func TestSingleGet(t *testing.T) {
 	t.Parallel()
 
-	before(testdb)
-	defer teardown(testdb)
+	testdb, teardown := setup(t)
+	defer teardown()
 	db := NewDb(testdb)
 	key := "foo-key"
 	value := "foo-value"
@@ -72,8 +72,8 @@ func TestSingleGet(t *testing.T) {
 func TestMultipleGet(t *testing.T) {
 	t.Parallel()
 
-	before(testdb)
-	defer teardown(testdb)
+	testdb, teardown := setup(t)
+	defer teardown()
 	db := NewDb(testdb)
 	key := "foo-key"
 	value := "foo-value"
@@ -106,8 +106,8 @@ func TestSingleDelete(t *testing.T) {
 	t.Parallel()
 
 	// prepare
-	before(testdb)
-	defer teardown(testdb)
+	testdb, teardown := setup(t)
+	defer teardown()
 	db := NewDb(testdb)
 	key := "foo-key"
 	value := "foo-value"
@@ -127,8 +127,8 @@ func TestSingleRecover(t *testing.T) {
 	t.Parallel()
 
 	// prepare
-	before(testdb)
-	defer teardown(testdb)
+	testdb, teardown := setup(t)
+	defer teardown()
 	db := NewDb(testdb)
 	key := "foo-key"
 	value := "foo-value"
@@ -160,8 +160,8 @@ func TestSingleRecoverWithDelete(t *testing.T) {
 	t.Parallel()
 
 	// prepare
-	before(testdb)
-	defer teardown(testdb)
+	testdb, teardown := setup(t)
+	defer teardown()
 	db := NewDb(testdb)
 	key := "foo-key"
 	value := "foo-value"
@@ -193,8 +193,8 @@ func TestSingleRecoverWithDelete(t *testing.T) {
 func TestMultipleRecover(t *testing.T) {
 	t.Parallel()
 
-	before(testdb)
-	defer teardown(testdb)
+	testdb, teardown := setup(t)
+	defer teardown()
 	db := NewDb(testdb)
 
 	// first item
