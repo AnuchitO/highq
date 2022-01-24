@@ -24,6 +24,23 @@ func setup(t *testing.T) (string, func()) {
 	return filepath.Join(dir, testdb), teardown
 }
 
+func setupFile(t *testing.T) (*os.File, func()) {
+	t.Parallel()
+
+	const testdb = "db.test.bin"
+	f, err := ioutil.TempFile("", "dbstore")
+	if err != nil {
+		t.Fatalf("error creating temp dir: %v", err)
+	}
+
+	teardown := func() {
+		f.Close()
+		os.Remove(f.Name())
+	}
+
+	return f, teardown
+}
+
 func TestSingleGet(t *testing.T) {
 	testdb, teardown := setup(t)
 	defer teardown()
