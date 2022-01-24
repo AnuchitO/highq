@@ -11,8 +11,7 @@ import (
 )
 
 func TestSingleServiceGet(t *testing.T) {
-	f, teardown := setup(t)
-	defer teardown()
+	f := setup(t)
 	db := New(f)
 	service := NewService(db)
 	key := "foo-key"
@@ -33,8 +32,7 @@ func TestSingleServiceGet(t *testing.T) {
 
 func TestSingleServiceDelete(t *testing.T) {
 	// prepare
-	f, teardown := setup(t)
-	defer teardown()
+	f := setup(t)
 	db := New(f)
 	service := NewService(db)
 	key := "foo-key"
@@ -53,8 +51,7 @@ func TestSingleServiceDelete(t *testing.T) {
 
 func TestMultipleServiceSet(t *testing.T) {
 	// prepare testint
-	f, teardown := setup(t)
-	defer teardown()
+	f := setup(t)
 	db := New(f)
 	service := NewService(db)
 

@@ -9,15 +9,14 @@ import (
 	"github.com/mattetti/filebuffer"
 )
 
-func setup(t *testing.T) (io.ReadWriteSeeker, func()) {
+func setup(t *testing.T) io.ReadWriteSeeker {
 	t.Parallel()
 
-	return filebuffer.New(nil), func() {}
+	return filebuffer.New(nil)
 }
 
 func TestSingleGet(t *testing.T) {
-	f, teardown := setup(t)
-	defer teardown()
+	f := setup(t)
 	db := New(f)
 	key := "foo-key"
 	value := "foo-value"
@@ -36,8 +35,7 @@ func TestSingleGet(t *testing.T) {
 }
 
 func TestMultipleGet(t *testing.T) {
-	f, teardown := setup(t)
-	defer teardown()
+	f := setup(t)
 	db := New(f)
 	key := "foo-key"
 	value := "foo-value"
@@ -68,8 +66,7 @@ func TestMultipleGet(t *testing.T) {
 
 func TestSingleDelete(t *testing.T) {
 	// prepare
-	f, teardown := setup(t)
-	defer teardown()
+	f := setup(t)
 	db := New(f)
 	key := "foo-key"
 	value := "foo-value"
@@ -87,8 +84,7 @@ func TestSingleDelete(t *testing.T) {
 
 func TestSingleRecover(t *testing.T) {
 	// prepare
-	f, teardown := setup(t)
-	defer teardown()
+	f := setup(t)
 	db := New(f)
 	key := "foo-key"
 	value := "foo-value"
@@ -118,8 +114,7 @@ func TestSingleRecover(t *testing.T) {
 
 func TestSingleRecoverWithDelete(t *testing.T) {
 	// prepare
-	f, teardown := setup(t)
-	defer teardown()
+	f := setup(t)
 	db := New(f)
 	key := "foo-key"
 	value := "foo-value"
@@ -149,8 +144,7 @@ func TestSingleRecoverWithDelete(t *testing.T) {
 }
 
 func TestMultipleRecover(t *testing.T) {
-	f, teardown := setup(t)
-	defer teardown()
+	f := setup(t)
 	db := New(f)
 
 	// first item
