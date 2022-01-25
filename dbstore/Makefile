@@ -21,6 +21,18 @@ test:
 run: build
 	PORT=8080 DB_FILENAME=${DB_FILE} ./app
 
+install-protobuf-windows:
+	$(info download it here: https://github.com/protocolbuffers/protobuf/releases)
+
+install-protobuf-linux:
+	apt install -y protobuf-compiler
+
+install-protobuf-macos:
+	brew install protobuf
+
+install-proto-gen-go:
+	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+
 proto:
 	protoc -I ${PB_DIR} ${PB_DIR}/db.proto --go_out=${PB_DIR}
 
