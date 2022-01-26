@@ -34,7 +34,7 @@ install-proto-gen-go:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
 proto:
-	protoc -I ${PB_DIR} ${PB_DIR}/db.proto --go_out=${PB_DIR}
+	protoc -I ${PB_DIR} ${PB_DIR}/db.proto --go_opt=paths=source_relative --go_out=${PB_DIR}
 
 clean:
 	rm -f ${NAME} ${DB_FILE} ./pkg/db/db.test.bin
