@@ -21,25 +21,25 @@ func TestSingleHttpDelete(t *testing.T) {
 	value := []byte("bar")
 	resp, err := http.Post(fmt.Sprintf("%s/db/foo", srv.URL), "application/octet-stream", bytes.NewReader(value))
 	if err != nil {
-		t.Fatalf("error http SET %v", err)
+		t.Fatalf("error http SET %#v", err)
 	}
 	if resp.StatusCode != http.StatusCreated {
 		t.Fatalf("statusCode expected %d, got %d", http.StatusCreated, resp.StatusCode)
 	}
 	req, err := http.NewRequest("DELETE", fmt.Sprintf("%s/db/foo", srv.URL), nil)
 	if err != nil {
-		t.Fatalf("error creating DELETE request %v", err)
+		t.Fatalf("error creating DELETE request %#v", err)
 	}
 	resp, err = http.DefaultClient.Do(req)
 	if err != nil {
-		t.Fatalf("error DELETE %v", err)
+		t.Fatalf("error DELETE %#v", err)
 	}
 	if resp.StatusCode != http.StatusOK {
 		t.Fatalf("statusCode expected %d, got %d", http.StatusOK, resp.StatusCode)
 	}
 	resp, err = http.Get(fmt.Sprintf("%s/db/foo", srv.URL))
 	if err != nil {
-		t.Fatalf("error http GET %v", err)
+		t.Fatalf("error http GET %#v", err)
 	}
 	if resp.StatusCode != http.StatusNotFound {
 		t.Fatalf("statusCode expected %d, got %d", http.StatusOK, resp.StatusCode)
@@ -58,14 +58,14 @@ func TestSingleHttpSetAndGet(t *testing.T) {
 	value := []byte("bar")
 	resp, err := http.Post(fmt.Sprintf("%s/db/foo", srv.URL), "application/octet-stream", bytes.NewReader(value))
 	if err != nil {
-		t.Fatalf("error http SET %v", err)
+		t.Fatalf("error http SET %#v", err)
 	}
 	if resp.StatusCode != http.StatusCreated {
 		t.Fatalf("statusCode expected %d, got %d", http.StatusCreated, resp.StatusCode)
 	}
 	resp, err = http.Get(fmt.Sprintf("%s/db/foo", srv.URL))
 	if err != nil {
-		t.Fatalf("error http GET %v", err)
+		t.Fatalf("error http GET %#v", err)
 	}
 	if resp.StatusCode != http.StatusOK {
 		t.Fatalf("statusCode expected %d, got %d", http.StatusOK, resp.StatusCode)
