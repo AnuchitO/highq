@@ -2,7 +2,6 @@ package db
 
 import (
 	"fmt"
-	"reflect"
 	"strconv"
 	"sync"
 	"testing"
@@ -25,7 +24,7 @@ func TestSingleServiceGet(t *testing.T) {
 	if err != nil {
 		t.Fatalf("error getting entity %#v", err)
 	}
-	if !reflect.DeepEqual(entity, readEntity) {
+	if !IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
 }

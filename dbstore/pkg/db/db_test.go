@@ -15,6 +15,12 @@ func setup(t *testing.T) io.ReadWriteSeeker {
 	return filebuffer.New(nil)
 }
 
+func IsEquals(want, got *pb.Entity) bool {
+	key := want.Key == got.Key
+	val := reflect.DeepEqual(want.Value, got.Value)
+	return key && val
+}
+
 func TestSingleGet(t *testing.T) {
 	f := setup(t)
 	db := New(f)
@@ -29,7 +35,8 @@ func TestSingleGet(t *testing.T) {
 	if err != nil {
 		t.Fatalf("error getting entity %#v", err)
 	}
-	if !reflect.DeepEqual(entity, readEntity) {
+
+	if !IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
 }
@@ -56,10 +63,10 @@ func TestMultipleGet(t *testing.T) {
 		t.Fatalf("error getting entity %#v", err)
 	}
 	readEntity1, err := db.Get(key1)
-	if !reflect.DeepEqual(entity, readEntity) {
+	if !IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
-	if !reflect.DeepEqual(entity1, readEntity1) {
+	if !IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity1, readEntity1)
 	}
 }
@@ -106,7 +113,7 @@ func TestSingleRecover(t *testing.T) {
 	if err != nil {
 		t.Fatalf("error deleting entity %#v", err)
 	}
-	if !reflect.DeepEqual(entity, readEntity) {
+	if !IsEquals(entity, readEntity) {
 		t.Fatalf("error entities not equal after recovering")
 	}
 
@@ -195,13 +202,13 @@ func TestMultipleRecover(t *testing.T) {
 	}
 
 	// assert
-	if !reflect.DeepEqual(entity, readEntity) {
+	if !IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
-	if !reflect.DeepEqual(entity1, readEntity1) {
+	if !IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity1, readEntity1)
 	}
-	if !reflect.DeepEqual(entity2, readEntity2) {
+	if !IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity2, readEntity2)
 	}
 }
