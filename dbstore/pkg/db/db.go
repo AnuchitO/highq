@@ -8,7 +8,7 @@ import (
 	"log"
 
 	"github.com/anuchito/dbstore/pb"
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 // DB type
