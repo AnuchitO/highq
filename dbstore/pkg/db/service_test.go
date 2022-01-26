@@ -23,10 +23,10 @@ func TestSingleServiceGet(t *testing.T) {
 	}
 	readEntity, err := service.Get(key)
 	if err != nil {
-		t.Fatalf("error getting entity %v", err)
+		t.Fatalf("error getting entity %#v", err)
 	}
 	if !reflect.DeepEqual(entity, readEntity) {
-		t.Fatalf("expected %v, got %v", entity, readEntity)
+		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
 }
 
@@ -45,7 +45,7 @@ func TestSingleServiceDelete(t *testing.T) {
 	err = service.Delete(key)
 	readEntity, err := service.Get(key)
 	if readEntity != nil || err != nil {
-		t.Fatalf("readEntity expected nil, got %v", readEntity)
+		t.Fatalf("readEntity expected nil, got %#v", readEntity)
 	}
 }
 
@@ -96,7 +96,7 @@ func TestMultipleServiceSet(t *testing.T) {
 			fmt.Printf("error getting key-value: %d\n", i)
 		}
 		if string(expectedValue) != string(entity.Value) {
-			t.Fatalf("value expected %v, got %v", expectedValue, entity.Value)
+			t.Fatalf("value expected %#v, got %#v", expectedValue, entity.Value)
 		}
 	}
 }

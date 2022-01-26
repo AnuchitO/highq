@@ -27,10 +27,10 @@ func TestSingleGet(t *testing.T) {
 	}
 	readEntity, err := db.Get(key)
 	if err != nil {
-		t.Fatalf("error getting entity %v", err)
+		t.Fatalf("error getting entity %#v", err)
 	}
 	if !reflect.DeepEqual(entity, readEntity) {
-		t.Fatalf("expected %v, got %v", entity, readEntity)
+		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
 }
 
@@ -53,14 +53,14 @@ func TestMultipleGet(t *testing.T) {
 	}
 	readEntity, err := db.Get(key)
 	if err != nil {
-		t.Fatalf("error getting entity %v", err)
+		t.Fatalf("error getting entity %#v", err)
 	}
 	readEntity1, err := db.Get(key1)
 	if !reflect.DeepEqual(entity, readEntity) {
-		t.Fatalf("expected %v, got %v", entity, readEntity)
+		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
 	if !reflect.DeepEqual(entity1, readEntity1) {
-		t.Fatalf("expected %v, got %v", entity1, readEntity1)
+		t.Fatalf("expected %#v, got %#v", entity1, readEntity1)
 	}
 }
 
@@ -78,7 +78,7 @@ func TestSingleDelete(t *testing.T) {
 	err = db.Delete(key)
 	readEntity, err := db.Get(key)
 	if readEntity != nil || err != nil {
-		t.Fatalf("readEntity expected nil, got %v", readEntity)
+		t.Fatalf("readEntity expected nil, got %#v", readEntity)
 	}
 }
 
@@ -99,12 +99,12 @@ func TestSingleRecover(t *testing.T) {
 
 	err = db.Recover()
 	if err != nil {
-		t.Fatalf("error recovering %v", err)
+		t.Fatalf("error recovering %#v", err)
 	}
 
 	readEntity, err := db.Get(key)
 	if err != nil {
-		t.Fatalf("error deleting entity %v", err)
+		t.Fatalf("error deleting entity %#v", err)
 	}
 	if !reflect.DeepEqual(entity, readEntity) {
 		t.Fatalf("error entities not equal after recovering")
@@ -134,12 +134,12 @@ func TestSingleRecoverWithDelete(t *testing.T) {
 
 	err = db.Recover()
 	if err != nil {
-		t.Fatalf("error recovering %v", err)
+		t.Fatalf("error recovering %#v", err)
 	}
 
 	readEntity, err := db.Get(key)
 	if readEntity != nil || err != nil {
-		t.Fatalf("readEntity expected nil, got %v", readEntity)
+		t.Fatalf("readEntity expected nil, got %#v", readEntity)
 	}
 }
 
@@ -179,29 +179,29 @@ func TestMultipleRecover(t *testing.T) {
 	db.offsetMap = make(map[string]int64)
 	err = db.Recover()
 	if err != nil {
-		t.Fatalf("error recovering %v", err)
+		t.Fatalf("error recovering %#v", err)
 	}
 	readEntity, err := db.Get(key)
 	if err != nil {
-		t.Fatalf("error getting entity %v", err)
+		t.Fatalf("error getting entity %#v", err)
 	}
 	readEntity1, err := db.Get(key1)
 	if err != nil {
-		t.Fatalf("error getting entity1 %v", err)
+		t.Fatalf("error getting entity1 %#v", err)
 	}
 	readEntity2, err := db.Get(key2)
 	if err != nil {
-		t.Fatalf("error getting entity2 %v", err)
+		t.Fatalf("error getting entity2 %#v", err)
 	}
 
 	// assert
 	if !reflect.DeepEqual(entity, readEntity) {
-		t.Fatalf("expected %v, got %v", entity, readEntity)
+		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
 	if !reflect.DeepEqual(entity1, readEntity1) {
-		t.Fatalf("expected %v, got %v", entity1, readEntity1)
+		t.Fatalf("expected %#v, got %#v", entity1, readEntity1)
 	}
 	if !reflect.DeepEqual(entity2, readEntity2) {
-		t.Fatalf("expected %v, got %v", entity2, readEntity2)
+		t.Fatalf("expected %#v, got %#v", entity2, readEntity2)
 	}
 }
