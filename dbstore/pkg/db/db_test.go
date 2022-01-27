@@ -2,10 +2,10 @@ package db
 
 import (
 	"io"
-	"reflect"
 	"testing"
 
 	"github.com/anuchito/dbstore/pb"
+	"github.com/anuchito/dbstore/pkg/db/dbtest"
 	"github.com/mattetti/filebuffer"
 )
 
@@ -13,12 +13,6 @@ func setup(t *testing.T) io.ReadWriteSeeker {
 	t.Parallel()
 
 	return filebuffer.New(nil)
-}
-
-func IsEquals(want, got *pb.Entity) bool {
-	key := want.Key == got.Key
-	val := reflect.DeepEqual(want.Value, got.Value)
-	return key && val
 }
 
 func TestSingleGet(t *testing.T) {
@@ -36,7 +30,7 @@ func TestSingleGet(t *testing.T) {
 		t.Fatalf("error getting entity %#v", err)
 	}
 
-	if !IsEquals(entity, readEntity) {
+	if !dbtest.IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
 }
@@ -63,10 +57,10 @@ func TestMultipleGet(t *testing.T) {
 		t.Fatalf("error getting entity %#v", err)
 	}
 	readEntity1, err := db.Get(key1)
-	if !IsEquals(entity, readEntity) {
+	if !dbtest.IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
-	if !IsEquals(entity, readEntity) {
+	if !dbtest.IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity1, readEntity1)
 	}
 }
@@ -113,7 +107,7 @@ func TestSingleRecover(t *testing.T) {
 	if err != nil {
 		t.Fatalf("error deleting entity %#v", err)
 	}
-	if !IsEquals(entity, readEntity) {
+	if !dbtest.IsEquals(entity, readEntity) {
 		t.Fatalf("error entities not equal after recovering")
 	}
 
@@ -202,13 +196,13 @@ func TestMultipleRecover(t *testing.T) {
 	}
 
 	// assert
-	if !IsEquals(entity, readEntity) {
+	if !dbtest.IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
-	if !IsEquals(entity, readEntity) {
+	if !dbtest.IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity1, readEntity1)
 	}
-	if !IsEquals(entity, readEntity) {
+	if !dbtest.IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity2, readEntity2)
 	}
 }

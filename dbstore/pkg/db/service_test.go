@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/anuchito/dbstore/pb"
+	"github.com/anuchito/dbstore/pkg/db/dbtest"
 )
 
 func TestSingleServiceGet(t *testing.T) {
@@ -24,7 +25,7 @@ func TestSingleServiceGet(t *testing.T) {
 	if err != nil {
 		t.Fatalf("error getting entity %#v", err)
 	}
-	if !IsEquals(entity, readEntity) {
+	if !dbtest.IsEquals(entity, readEntity) {
 		t.Fatalf("expected %#v, got %#v", entity, readEntity)
 	}
 }
