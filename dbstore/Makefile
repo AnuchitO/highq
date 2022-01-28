@@ -9,6 +9,7 @@ RELEASE?=0.0.1
 COMMIT?=$(shell git rev-parse --short HEAD)
 BUILD_TIME?=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
 PROJECT?=github.com/anuchito/dbstore
+PORT=8080
 
 build:
 	go build -ldflags "-X ${PROJECT}/pkg/version.Release=${RELEASE} \
@@ -18,8 +19,11 @@ build:
 test:
 	go test -v -race github.com/anuchito/dbstore/...
 
+integration-test:
+	PORT=${PORT} go test -v -race --tags integration github.com/anuchito/dbstore/...
+
 run: build
-	PORT=8080 DB_FILENAME=${DB_FILE} ./app
+	PORT=${PORT} DB_FILENAME=${DB_FILE} ./app
 
 install-protobuf-windows:
 	$(info download it here: https://github.com/protocolbuffers/protobuf/releases)
