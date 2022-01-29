@@ -1,4 +1,4 @@
-double/http/package http
+package http
 
 import (
 	"errors"

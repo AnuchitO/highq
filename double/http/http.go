@@ -12,8 +12,10 @@ type Response struct {
 	Description string `json:"description"`
 }
 
+var get = http.Get
+
 func MakeHTTPCall(url string) (*Response, error) {
-	resp, err := http.Get(url)
+	resp, err := get(url)
 	if err != nil {
 		return nil, err
 	}
