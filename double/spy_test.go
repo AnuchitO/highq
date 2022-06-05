@@ -5,10 +5,12 @@ import "testing"
 type SpySearcher struct {
 	phone           string
 	searchWasCalled bool
+	whatIsFirstName string
 }
 
 func (ss *SpySearcher) Search(people []*Person, firstName, lastName string) *Person {
 	ss.searchWasCalled = true
+	ss.whatIsFirstName = firstName
 	return &Person{
 		FirstName: firstName,
 		LastName:  lastName,
@@ -25,6 +27,10 @@ func TestFindCallsSearchAndReturnsPerson(t *testing.T) {
 
 	if !spy.searchWasCalled {
 		t.Errorf("Expected to call 'Search' in 'Find', but it wasn't.")
+	}
+
+	if spy.whatIsFirstName != "ANUCHIT" {
+		t.Error("xxxx")
 	}
 
 	if phone != fakePhone {

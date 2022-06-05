@@ -16,6 +16,15 @@ func (ms *MockSearcher) Search(people []*Person, firstName, lastName string) *Pe
 	}
 }
 
+func (ms *MockSearcher) Create(people []*Person, firstName, lastName string) *Person {
+	ms.methodsToCall["Create"] = true
+	return &Person{
+		FirstName: firstName,
+		LastName:  lastName,
+		Phone:     ms.phone,
+	}
+}
+
 func (ms *MockSearcher) ExpectToCall(methodName string) {
 	if ms.methodsToCall == nil {
 		ms.methodsToCall = make(map[string]bool)
