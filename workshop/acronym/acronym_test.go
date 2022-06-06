@@ -5,40 +5,46 @@ import (
 )
 
 type acronymTest struct {
-	input    string
-	want string
+	input string
+	want  string
 }
 
 var stringTestCases = []acronymTest{
 	{
-		input:    "Portable Network Graphics",
-		want: "PNG",
+		input: "Portable Network Graphics",
+		want:  "PNG",
 	},
 	{
-		input:    "Ruby on Rails",
-		want: "ROR",
+		input: "Ruby on Rails",
+		want:  "ROR",
 	},
 	{
-		input:    "First In, First Out",
-		want: "FIFO",
+		input: "First In, First Out",
+		want:  "FIFO",
 	},
 	{
-		input:    "GNU Image Manipulation Program",
-		want: "GIMP",
+		input: "GNU Image Manipulation Program",
+		want:  "GIMP",
 	},
 	{
-		input:    "Complementary metal-oxide semiconductor",
-		want: "CMOS",
+		input: "Complementary metal-oxide semiconductor",
+		want:  "CMOS",
 	},
 }
 
 func TestAcronym(t *testing.T) {
+	t.Cleanup(func() {
+		t.Logf("#1:!! %d", len(stringTestCases))
+	})
 	for _, test := range stringTestCases {
 		actual := Abbreviate(test.input)
 		if actual != test.want {
 			t.Errorf("Acronym test [%s], expected [%s], actual [%s]", test.input, test.want, actual)
 		}
 	}
+	t.Cleanup(func() {
+		t.Logf("#2:!! %d", len(stringTestCases))
+	})
 }
 
 func BenchmarkAcronym(b *testing.B) {
